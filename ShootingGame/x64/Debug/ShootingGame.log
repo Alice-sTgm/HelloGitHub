@@ -1,1 +1,4 @@
-﻿  ShootingGame.vcxproj -> C:\Users\hinoue\source\repos\HelloGitHub\x64\Debug\ShootingGame.exe
+﻿  Player.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+c:\users\akitomathumi\source\repos\hellogithub\shootinggame\player.cpp(33): warning C4552: '-': 式の結果が使用されていません
+  ShootingGame.vcxproj -> C:\Users\akitomathumi\Source\Repos\HelloGitHub\x64\Debug\ShootingGame.exe

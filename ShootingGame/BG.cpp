@@ -5,7 +5,6 @@
 #include "MapData.h"
 
 //  É}ÉNÉçíËã`
-
 #undef SAFE_RELEASE
 #undef SAFE_DELETE
 #undef SAFE_DELETE_ARRAY

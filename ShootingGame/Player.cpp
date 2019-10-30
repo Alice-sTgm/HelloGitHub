@@ -4,7 +4,8 @@
 #include "Stage.h"
 #include "Shot.h"
 
-//->追加分_
+
+//
 void CPlayer::setJoystic(DIJOYSTATE2 *js) {
 	m_js = *js;
 }
@@ -17,8 +18,32 @@ struct XINPUT_DEVICE_NODE
 
 XINPUT_DEVICE_NODE* g_pXInputDeviceList = nullptr;
 */
-//->追加分^
+//
 
+//追加予定
+class HP { //プレイヤーのHP管理
+private:
+	int m_MaxHp;//最大HP
+	int m_CurrentHp;//現在のHP
+
+public:
+	int GetMaxHp(void)const { return m_MaxHp; }//プレイヤーのHPをつける
+	int GetCurrentHp(void)const { return m_CurrentHp; }
+	void AddDamage(int value) { m_CurrentHp -= value; }//NormalizeHp(); }
+	//void RecoverDamage(int value) { m_CurrentHp += value; NormalizeHp(); }
+	void SetMaxHp(int value) { m_MaxHp = value; } //NormalizeHp(); }
+	//void NormalizeHp(void) { if (m_CurrentHp < 0) { m_CurrentHp = 0; } else if (m_CurrentHp > m_MaxHp) { m_CurrentHp - m_MaxHp; } }
+
+
+};
+
+//class Player {//PlayerのHP無い？作ります...松見
+//	HP m_Hp;
+//
+//	//m_MaxHp - m_CurrentHp
+//public:
+//	const HP GetHp(void)const{return m_Hp;}
+//	};
 
 CPlayer::CPlayer(CStage *pStage)
 {
@@ -49,6 +74,7 @@ CPlayer::CPlayer(CStage *pStage)
 		m_fX = 150.0f;
 		m_fY = 240.0f;
 }
+
 
 
 CPlayer::~CPlayer()
@@ -91,7 +117,7 @@ bool CPlayer::move() {
 	else
 		m_bShot = false;
 
-	if (m_iDamage > 0)
+	if (m_iDamage > 1)
 		--m_iDamage;
 
 	return true;
@@ -104,8 +130,8 @@ void CPlayer::draw(ID2D1RenderTarget *pRenderTarget) {
 	D2D1_ELLIPSE ellipse;
 	ellipse.point.x = m_fX;
 	ellipse.point.y = m_fY;
-	ellipse.radiusX = 8.0f;
-	ellipse.radiusY = 8.0f;
+	ellipse.radiusX = 8.0f;//キャラクターの横幅が広がる メモ
+	ellipse.radiusY = 8.0f;//キャラクターの縦幅が広がる　メモ...松見
 	pRenderTarget->FillEllipse(ellipse, m_pRed);
 
 	if (m_iDamage > 0) {
@@ -150,7 +176,6 @@ bool CPlayer::collide(IGameObject *pObj) {
 	float t = m_fY - 5;
 	return pObj->collide(l, t, 10, 10);
 }
-
 
 void CPlayer::damage(float amount) {
 	m_iDamage = 30;
