@@ -122,6 +122,136 @@ void CSelector::doDraw(ID2D1RenderTarget *pRenderTarget) {
 	if (m_pWhiteBrush) {
 		pRenderTarget->DrawText(str, _tcslen(str), m_pTextFormat, &rc, m_pWhiteBrush);
 	}
+
+	//m_iCount = 200;
+	rc.left = 0;
+	rc.right = m_iCount;
+	rc.top = 0;
+	rc.bottom = 20;
+	//funcDrawFrame();
+
+	pRenderTarget->DrawRectangle(&rc, m_pWhiteBrush,1.0f);
+	pRenderTarget->FillRectangle(&rc, m_pWhiteBrush);
+}
+
+BOOL Rectangle(
+	HDC hDC,
+	int nLeft,
+	int nTop,
+	int nRight,
+	int nBottom
+);
+
+//------------------------------------------------
+// 外枠と内部を描画
+//------------------------------------------------
+static VOID funcDrawFrame(HDC hDC)
+{
+	HPEN   hNewPen = (HPEN)CreatePen(PS_INSIDEFRAME, 4, RGB(0x99, 0x66, 0x00));
+	HPEN   hOldPen = (HPEN)SelectObject(hDC, hNewPen);
+	HBRUSH hNewBrush = (HBRUSH)CreateSolidBrush(RGB(0xFF, 0x99, 0x00));
+	HBRUSH hOldBrush = (HBRUSH)SelectObject(hDC, hNewBrush);
+
+	Rectangle(hDC, 16, 32, 176, 128);
+
+	DeleteObject(SelectObject(hDC, hOldBrush));
+	DeleteObject(SelectObject(hDC, hOldPen));
+}
+
+//------------------------------------------------
+// 外枠のみを描画
+//------------------------------------------------
+static VOID funcDrawEdge(HDC hDC)
+{
+	HBRUSH hOldBrush = (HBRUSH)SelectObject(hDC, GetStockObject(NULL_BRUSH));
+	HPEN   hNewPen = (HPEN)CreatePen(PS_INSIDEFRAME, 4, RGB(0x99, 0x66, 0x00));
+	HPEN   hOldPen = (HPEN)SelectObject(hDC, hNewPen);
+
+	Rectangle(hDC, 16, 32, 176, 128);
+
+	SelectObject(hDC, hOldBrush);
+	SelectObject(hDC, hOldPen);
+	DeleteObject(hNewPen);
+}
+
+//------------------------------------------------
+// 内部のみを描画
+//------------------------------------------------
+static VOID funcDrawFill(HDC hDC)
+{
+	HPEN   hOldPen = (HPEN)SelectObject(hDC, GetStockObject(NULL_PEN));
+	HBRUSH hNewBrush = (HBRUSH)CreateSolidBrush(RGB(0xFF, 0x99, 0x00));
+	HBRUSH hOldBrush = (HBRUSH)SelectObject(hDC, hNewBrush);
+
+	Rectangle(hDC, 16, 32, 176, 128);
+
+	SelectObject(hDC, hOldPen);
+	SelectObject(hDC, hOldBrush);
+	DeleteObject(hNewBrush);
+}
+
+//------------------------------------------------
+// 長方形の座標マクロ
+//------------------------------------------------
+#define SIZE16(x,y,w,l)     ((x) * 16), ((y) * 16), (((x)+(w)) * 16), (((y)+(l)) * 16)
+
+//------------------------------------------------
+// 長方形の描画
+//------------------------------------------------
+static VOID funcColorRectangle(HDC hDC)
+{
+	LONG cx = 1;
+	LONG cy = 1;
+
+	// 橙色
+	SetDCPenColor(hDC, RGB(0x99, 0x66, 0x00));
+	SetDCBrushColor(hDC, RGB(0xFF, 0xCC, 0x00));
+	Rectangle(hDC, SIZE16(cx, cy, 9, 6));
+	cx += 4;
+	cy += 3;
+	// 黄緑色
+	SetDCPenColor(hDC, RGB(0x66, 0x99, 0x00));
+	SetDCBrushColor(hDC, RGB(0xCC, 0xFF, 0x00));
+	Rectangle(hDC, SIZE16(cx, cy, 9, 6));
+	cx += 4;
+	cy += 3;
+	// 桃色
+	SetDCPenColor(hDC, RGB(0x99, 0x00, 0x66));
+	SetDCBrushColor(hDC, RGB(0xFF, 0x00, 0xCC));
+	Rectangle(hDC, SIZE16(cx, cy, 9, 6));
+	cx += 4;
+	cy += 3;
+	// 紫色
+	SetDCPenColor(hDC, RGB(0x66, 0x00, 0x99));
+	SetDCBrushColor(hDC, RGB(0xCC, 0x00, 0xFF));
+	Rectangle(hDC, SIZE16(cx, cy, 9, 6));
+	cx += 4;
+	cy += 3;
+	// 青緑色
+	SetDCPenColor(hDC, RGB(0x00, 0x99, 0x66));
+	SetDCBrushColor(hDC, RGB(0x00, 0xFF, 0xCC));
+	Rectangle(hDC, SIZE16(cx, cy, 9, 6));
+	cx += 4;
+	cy += 3;
+	// 青色
+	SetDCPenColor(hDC, RGB(0x00, 0x66, 0x99));
+	SetDCBrushColor(hDC, RGB(0x00, 0xCC, 0xFF));
+	Rectangle(hDC, SIZE16(cx, cy, 9, 6));
+}
+
+//------------------------------------------------
+// WM_PAINTメッセージの処理
+//------------------------------------------------
+static VOID OnPaint(HWND hWnd)
+{
+	PAINTSTRUCT     ps;
+	HDC             hDC;
+
+	hDC = BeginPaint(hWnd, &ps);
+	SelectObject(hDC, GetStockObject(DC_PEN));
+	SelectObject(hDC, GetStockObject(DC_BRUSH));
+	funcColorRectangle(hDC);
+	EndPaint(hWnd, &ps);
 }
 
 

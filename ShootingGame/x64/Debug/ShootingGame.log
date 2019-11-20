@@ -1,1 +1,3 @@
-﻿  ShootingGame.vcxproj -> C:\Users\hinoue\source\repos\HelloGitHub\x64\Debug\ShootingGame.exe
+﻿  Enemy01.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  ShootingGame.vcxproj -> C:\Users\ryoshida\Source\Repos\HelloGitHub\x64\Debug\ShootingGame.exe
