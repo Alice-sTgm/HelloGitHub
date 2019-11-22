@@ -21,21 +21,21 @@ XINPUT_DEVICE_NODE* g_pXInputDeviceList = nullptr;
 //
 
 //追加予定
-class HP { //プレイヤーのHP管理
-private:
-	int m_MaxHp;//最大HP
-	int m_CurrentHp;//現在のHP
-
-public:
-	int GetMaxHp(void)const { return m_MaxHp; }//プレイヤーのHPをつける
-	int GetCurrentHp(void)const { return m_CurrentHp; }
-	void AddDamage(int value) { m_CurrentHp -= value; }//NormalizeHp(); }
-	//void RecoverDamage(int value) { m_CurrentHp += value; NormalizeHp(); }
-	void SetMaxHp(int value) { m_MaxHp = value; } //NormalizeHp(); }
-	//void NormalizeHp(void) { if (m_CurrentHp < 0) { m_CurrentHp = 0; } else if (m_CurrentHp > m_MaxHp) { m_CurrentHp - m_MaxHp; } }
-
-
-};
+//class HP { //プレイヤーのHP管理
+//private:
+//	int m_MaxHp;//最大HP
+//	int m_CurrentHp;//現在のHP
+//
+//public:
+//	int GetMaxHp(void)const { return m_MaxHp; }//プレイヤーのHPをつける
+//	int GetCurrentHp(void)const { return m_CurrentHp; }
+//	void AddDamage(int value) { m_CurrentHp -= value; }//NormalizeHp(); }
+//	//void RecoverDamage(int value) { m_CurrentHp += value; NormalizeHp(); }
+//	void SetMaxHp(int value) { m_MaxHp = value; } //NormalizeHp(); }
+//	//void NormalizeHp(void) { if (m_CurrentHp < 0) { m_CurrentHp = 0; } else if (m_CurrentHp > m_MaxHp) { m_CurrentHp - m_MaxHp; } }
+//
+//
+//};
 
 //class Player {//PlayerのHP無い？作ります...松見
 //	HP m_Hp;
@@ -44,7 +44,6 @@ public:
 //public:
 //	const HP GetHp(void)const{return m_Hp;}
 //	};
-
 CPlayer::CPlayer(CStage *pStage)
 {
 	ID2D1RenderTarget *pRenderTarget;
@@ -53,6 +52,7 @@ CPlayer::CPlayer(CStage *pStage)
 	m_pWhite = NULL;
 	m_iDamage = 0;
 	m_bShot = true;
+	//m_hp=new HP();
 	//    CSelector が所有しているID2D1RenderTarget を、
 	//  CStage からまた借りする
 
@@ -73,6 +73,7 @@ CPlayer::CPlayer(CStage *pStage)
 //	}
 		m_fX = 150.0f;
 		m_fY = 240.0f;
+		m_hp.SetMaxHp(1000);
 }
 
 
@@ -174,9 +175,19 @@ bool CPlayer::collide(float x, float y, float w, float h) {
 bool CPlayer::collide(IGameObject *pObj) {
 	float l = m_fX - 5;
 	float t = m_fY - 5;
-	return pObj->collide(l, t, 10, 10);
+	bool iscollide = pObj->collide(l, t, 10, 10);
+	if (iscollide) {
+		this->m_hp.AddDamage(10);
+	}
+	return iscollide;
 }
 
 void CPlayer::damage(float amount) {
 	m_iDamage = 30;
+	this->m_hp.AddDamage(amount);
+}
+
+int CPlayer::getHP()
+{
+	return m_hp.GetCurrentHp();
 }

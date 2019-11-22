@@ -34,6 +34,7 @@ public:
 
 	//->’Ç‰Á•ª
 	virtual void setJoystic(DIJOYSTATE2 *js);
+	virtual int getPlayerHp();
 	//->’Ç‰Á•ª
 
 	ID2D1RenderTarget *GetRenderTarget();

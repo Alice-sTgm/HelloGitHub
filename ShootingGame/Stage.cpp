@@ -13,6 +13,9 @@
 void CStage::setJoystic(DIJOYSTATE2 *js) {
 	m_pPlayer->setJoystic(js);
 }
+int CStage::getPlayerHp() {
+	return m_pPlayer->getHP();
+}
 //->’Ç‰Á•ª
 
 /***********************************

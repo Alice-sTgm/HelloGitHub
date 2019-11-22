@@ -6,7 +6,7 @@
 ***************************************************/
 #include "stdafx.h"
 #include "IGameScene.h"
-
+#include "Player.h"
 //  純粋仮想デストラクタ
 IGameScene::~IGameScene()
 {
@@ -15,5 +15,8 @@ IGameScene::~IGameScene()
 //->追加分
 void IGameScene::setJoystic(DIJOYSTATE2 * js)
 {
+}
+int IGameScene::getPlayerHp() {
+	return 0;
 }
 //->追加分

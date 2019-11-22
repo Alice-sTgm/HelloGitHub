@@ -25,6 +25,7 @@ public:
 
 	//->’Ç‰Á•ª
 	virtual void setJoystic(DIJOYSTATE2 *js);
+	virtual int getPlayerHp();
 	//->’Ç‰Á•ª
 
 

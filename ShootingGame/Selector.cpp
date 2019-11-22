@@ -110,10 +110,14 @@ void CSelector::doDraw(ID2D1RenderTarget *pRenderTarget) {
 	if (m_pScene != NULL) {
 		m_pScene->draw(pRenderTarget);
 	}
+	int hit = m_pScene->getPlayerHp();
+	
+
 	D2D1_SIZE_F size;
 	size = pRenderTarget->GetSize();
+	_stprintf_s(str, _countof(str), _T("HP:%d"),hit );//試しでいじりました。
 
-	_stprintf_s(str, _countof(str), _T("%08d"), m_iCount);
+	//_stprintf_s(str, _countof(str), _T("%08d"), m_iCount);//8桁で数字を出している出している
 	D2D1_RECT_F    rc;
 	rc.left = 0;
 	rc.right = size.width;
@@ -122,6 +126,20 @@ void CSelector::doDraw(ID2D1RenderTarget *pRenderTarget) {
 	if (m_pWhiteBrush) {
 		pRenderTarget->DrawText(str, _tcslen(str), m_pTextFormat, &rc, m_pWhiteBrush);
 	}
+
+	if (hit <= 0) {
+		TCHAR    strGameOver[256] =_T("Game Over!");
+		  //文字を追加するプログラム
+		D2D1_RECT_F    rcGameOver;
+		rcGameOver.left = 100;
+		rcGameOver.right = size.width;
+		rcGameOver.top = 100;
+		rcGameOver.bottom = size.height;
+		if (m_pWhiteBrush) {
+			pRenderTarget->DrawText(strGameOver, _tcslen(strGameOver), m_pTextFormat, &rcGameOver, m_pWhiteBrush);
+		}
+	}
+	
 }
 
 
