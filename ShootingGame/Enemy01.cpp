@@ -48,7 +48,7 @@ bool CEnemy01::move() {
 				IGameObject *pObj = new CBullet(m_pParent, m_fX + 32, m_fY + 32,
 					pPlayer->getX(), pPlayer->getY());
 			}
-			//m_bBullet = true;
+			m_bBullet = false;
 		}
 
 		if (m_fX < -64)
@@ -62,6 +62,18 @@ bool CEnemy01::move() {
 				IGameObject *pObj = new CBullet(m_pParent, m_fX + 32, m_fY + 32,
 					pPlayer->getX(), pPlayer->getY());
 				m_pParent->AddBullet(pObj);
+				IGameObject *pObj2 = new CBullet(m_pParent, m_fX + 32, m_fY + 32,
+					pPlayer->getX() + 30, pPlayer->getY());
+				m_pParent->AddBullet(pObj2);
+				IGameObject *pObj3 = new CBullet(m_pParent, m_fX + 32, m_fY + 32,
+					pPlayer->getX() + 60, pPlayer->getY());
+				m_pParent->AddBullet(pObj3);
+				IGameObject *pObj4 = new CBullet(m_pParent, m_fX + 32, m_fY + 32,
+					pPlayer->getX() - 30, pPlayer->getY());
+				m_pParent->AddBullet(pObj4);
+
+
+
 			}
 			m_bBullet = true;
 

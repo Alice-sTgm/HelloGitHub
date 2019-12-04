@@ -151,7 +151,6 @@ void CSelector::doDraw(ID2D1RenderTarget *pRenderTarget) {
 			
 		}
 	}
-	
 }
 
 
