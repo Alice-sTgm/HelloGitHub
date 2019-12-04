@@ -63,7 +63,7 @@ bool CEnemy01::move() {
 					pPlayer->getX(), pPlayer->getY());
 				m_pParent->AddBullet(pObj);
 			}
-			//m_bBullet = true;
+			m_bBullet = true;
 
 		}
 

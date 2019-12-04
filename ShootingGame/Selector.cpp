@@ -125,7 +125,18 @@ void CSelector::doDraw(ID2D1RenderTarget *pRenderTarget) {
 	rc.bottom = size.height;
 	if (m_pWhiteBrush) {
 		pRenderTarget->DrawText(str, _tcslen(str), m_pTextFormat, &rc, m_pWhiteBrush);
+
 	}
+
+	rc.left = 0;
+	rc.right = hit/5;
+	rc.top = 0;
+	rc.bottom = 20;
+
+		//pRenderTarget->DrawText(str, _tcslen(str), m_pTextFormat, &rc, m_pWhiteBrush);
+		pRenderTarget->DrawRectangle(rc, m_pWhiteBrush, 1.0f);
+		pRenderTarget->FillRectangle(rc, m_pWhiteBrush);
+
 
 	if (hit <= 0) {
 		TCHAR    strGameOver[256] =_T("Game Over!");
@@ -137,6 +148,7 @@ void CSelector::doDraw(ID2D1RenderTarget *pRenderTarget) {
 		rcGameOver.bottom = size.height;
 		if (m_pWhiteBrush) {
 			pRenderTarget->DrawText(strGameOver, _tcslen(strGameOver), m_pTextFormat, &rcGameOver, m_pWhiteBrush);
+			
 		}
 	}
 	
